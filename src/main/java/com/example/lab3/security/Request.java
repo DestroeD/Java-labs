@@ -6,7 +6,7 @@ import java.util.Map;
 public class Request {
     private final Map<String, String> headers = new HashMap<>();
     private final Map<String, Object> attributes = new HashMap<>();
-    private String body; // за бажанням
+    private String body;
 
     public void setHeader(String name, String value) {
         headers.put(name, value);

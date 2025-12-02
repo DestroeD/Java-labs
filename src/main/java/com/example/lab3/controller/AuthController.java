@@ -17,21 +17,13 @@ public class AuthController {
         this.tokenService = tokenService;
     }
 
-    /**
-     * "Реєстрація" — генеруємо токен і повертаємо клієнту (просто логом).
-     * Токен не вимагається.
-     */
     public void register(Request request) {
-        // у body, наприклад, можемо передати ім’я користувача "maks"
         String username = request.getBody();
         String token = tokenService.generateToken(username);
         log.info("Користувач '{}' зареєстрований. Токен: {}", username, token);
         System.out.println("REGISTER: Твій токен: " + token);
     }
 
-    /**
-     * "Логін" — аналогічно
-     */
     public void login(Request request) {
         String username = request.getBody();
         String token = tokenService.generateToken(username);
@@ -39,9 +31,6 @@ public class AuthController {
         System.out.println("LOGIN: Твій токен: " + token);
     }
 
-    /**
-     * Оновлення токена — вимагає наявності токена
-     */
     @TokenRequired
     public void refreshToken(Request request) {
         String oldToken = request.getHeader("X-Auth-Token");
@@ -53,9 +42,6 @@ public class AuthController {
         }
     }
 
-    /**
-     * Інвалідація токена — вимагає токена
-     */
     @TokenRequired
     public void invalidateToken(Request request) {
         String token = request.getHeader("X-Auth-Token");
@@ -63,9 +49,6 @@ public class AuthController {
         System.out.println("INVALIDATE: Токен інвалідовано");
     }
 
-    /**
-     * Приклад захищеного ендпойнта, який віддає дані тільки при наявності токена
-     */
     @TokenRequired
     public void getProfile(Request request) {
         TokenPayload payload = (TokenPayload) request.getAttribute("tokenPayload");

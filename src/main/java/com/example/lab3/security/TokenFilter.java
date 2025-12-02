@@ -17,10 +17,6 @@ public class TokenFilter {
         this.tokenService = tokenService;
     }
 
-    /**
-     * Інтерцептор: викликає метод контролера лише якщо токен валідний
-     * (якщо метод позначено @TokenRequired).
-     */
     public void invoke(Object controller, String methodName, Request request) {
         try {
             Method method = controller.getClass().getMethod(methodName, Request.class);
@@ -56,7 +52,6 @@ public class TokenFilter {
     }
 
     private String extractToken(Request request) {
-        // умовно: шукаємо в заголовку X-Auth-Token
         return request.getHeader("X-Auth-Token");
     }
 }

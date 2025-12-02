@@ -19,10 +19,6 @@ public class TokenService {
 
     private final Set<String> invalidatedTokens = ConcurrentHashMap.newKeySet();
 
-    /**
-     * Генерація токена:
-     * username|appName|issuedMillis|expiresMillis → Base64
-     */
     public String generateToken(String username) {
         Instant now = Instant.now();
         Instant expires = now.plus(TOKEN_TTL);
@@ -38,9 +34,6 @@ public class TokenService {
         return token;
     }
 
-    /**
-     * Розпарсити токен без перевірки валідності
-     */
     public TokenPayload parse(String token) {
         try {
             String decoded = new String(
@@ -65,9 +58,6 @@ public class TokenService {
         }
     }
 
-    /**
-     * Повна перевірка токена
-     */
     public TokenPayload validate(String token) {
         if (token == null || token.isBlank()) {
             log.warn("Токен відсутній");

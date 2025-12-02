@@ -12,13 +12,12 @@ public class App {
         AuthController authController = new AuthController(tokenService);
         TokenFilter filter = new TokenFilter(tokenService);
 
-        // 1) Реєстрація — просто викликаємо метод напряму (без фільтра)
+        // 1) Реєстрація
         Request registerRequest = new Request();
         registerRequest.setBody("maks");
         authController.register(registerRequest);
 
-        // 2) Уявімо, що логін повернув токен (скопіюєш токен вручну з консолі)
-        // Для демонстрації зробимо так:
+        // 2) Уявімо, що логін повернув токен
         String token = tokenService.generateToken("maks");
 
         // 3) Викликаємо захищений ендпойнт /profile
